@@ -1,4 +1,4 @@
-import express, {Express, NextFunction, Request, Response} from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import authRoutes from './routes/authRoutes';
 import contentRoutes from './routes/contentRoutes';
 import { PrismaClient } from '@prisma/client';
@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 app.use('/content', contentRoutes);
-export {app, prisma};
+export { app, prisma };
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send({ message: 'Internal Server Error' });
