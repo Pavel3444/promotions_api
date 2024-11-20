@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { JWT_SECRET } from '../config';
 
 export const authenticateToken = (
-  req: Request,
+  req: Request & { user?: JwtPayload | string},
   res: Response,
   next: NextFunction,
 ): void => {
@@ -15,10 +15,7 @@ export const authenticateToken = (
     return;
   }
   try {
-    (req as Request & { user?: JwtPayload | string }).user = jwt.verify(
-      token,
-      JWT_SECRET,
-    ) as JwtPayload | string;
+    req.user = jwt.verify(token, JWT_SECRET) as JwtPayload | string;
     next();
   } catch {
     res.status(403).send({ message: 'Invalid token' });

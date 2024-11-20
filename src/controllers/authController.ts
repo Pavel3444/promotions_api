@@ -37,7 +37,9 @@ export const register = async (req: Request, res: Response) => {
       .status(201)
       .send({ message: 'User registered successfully', userId: newUser.id });
   } catch (error) {
-    console.error('Registration error:', error);
+    const err = error as Error;
+      console.error('Registration error:', err.message);
+
     res.status(500).send({ message: 'Internal server error' });
   }
 };
